@@ -21,6 +21,19 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    console.log('MongoDB database was cleaned');
+    return Recipe.create({
+      title: 'Pancakes',
+      level: 'Easy Peasy',
+      ingredients: ['Eggs', 'Flour', 'Milk', 'Salt'],
+      cuisine: 'American',
+      dishType: 'breakfast',
+      duration: 15,
+      creator: 'Filipe Freire'
+    });
+  })
+  .then(data => {
+    console.log('Created Recipe:', data.title);
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
