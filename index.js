@@ -12,7 +12,8 @@ mongoose
   .connect(MONGODB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(self => {
     console.log(`Connected to the database: "${self.connection.name}"`);
@@ -38,6 +39,14 @@ mongoose
   })
   .then(data => {
     console.log('These recipes were created', data);
+    return Recipe.findOneAndUpdate({ title: 'Rigatoni alla Genovese' }, { duration: 100 });
+  })
+  .then(data => {
+    console.log('The following recipe was changed successfully', data);
+    return Recipe.findOneAndDelete({ title: 'Carrot Cake' });
+  })
+  .then(data => {
+    console.log('The following recipe was eleminated successfully', data);
     return mongoose.disconnect();
   })
   .then(() => {
