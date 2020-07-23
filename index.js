@@ -32,8 +32,16 @@ mongoose
       creator: 'Filipe Freire'
     });
   })
+  .then(() => {
+    // console.log('Created Recipe:', data.title);
+    return Recipe.insertMany(data);
+  })
   .then(data => {
-    console.log('Created Recipe:', data.title);
+    console.log('These recipes were created', data);
+    return mongoose.disconnect();
+  })
+  .then(() => {
+    console.log('Disconnected from Mongoose');
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
